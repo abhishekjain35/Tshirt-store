@@ -19,3 +19,12 @@ exports.getUser = (req, res) => {
     req.profile.updatedAt = undefined;
     return res.json(req.profile);
 };
+
+exports.getAllUsers = (req, res) => {
+    User.find().exec((err, users) => {
+        if (err || !users) {
+            res.status(404).send("No users in db");
+        }
+        return res.json(users);
+    });
+};
