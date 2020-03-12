@@ -24,7 +24,7 @@ exports.updateUser = (req, res) => {
     User.findByIdAndUpdate(
         { _id: req.profile._id },
         { $set: req.body },
-        { new: true, useFindAndModify },
+        { new: true, useFindAndModify: false },
         (err, user) => {
             if (err) {
                 res.status(400).json({
