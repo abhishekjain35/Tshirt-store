@@ -20,11 +20,20 @@ exports.getUser = (req, res) => {
     return res.json(req.profile);
 };
 
-exports.getAllUsers = (req, res) => {
-    User.find().exec((err, users) => {
-        if (err || !users) {
-            res.status(404).send("No users in db");
+exports.updateUser = (req, res) => {
+    User.findByIdAndUpdate(
+        { _id: req.profile._id },
+        { $set: req.body },
+        { new: true, useFindAndModify },
+        (err, user) => {
+            if (err) {
+                res.status(400).json({
+                    error: "You are not authorized."
+                });
+            }
+            user.salt = undefined;
+            user.encry_password = undefined;
+            res.json(user);
         }
-        return res.json(users);
-    });
+    );
 };
