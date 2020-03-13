@@ -7,16 +7,17 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const categoryRoutes = require("./routes/category");
 
 //Connecting to database
 mongoose
-  .connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-  })
-  .then(() => console.log("DB CONNECTED"))
-  .catch(() => console.log("DB NOT CONNECTED"));
+    .connect(process.env.DATABASE, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+    })
+    .then(() => console.log("DB CONNECTED"))
+    .catch(() => console.log("DB NOT CONNECTED"));
 
 //Middleware
 app.use(bodyParser.json());
@@ -26,11 +27,12 @@ app.use(cors());
 //Routes
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", categoryRoutes);
 
 //Port
 const port = 8000;
 
 //Starting the Server
 app.listen(port, () => {
-  console.log(`app is running at ${port}`);
+    console.log(`app is running at ${port}`);
 });
