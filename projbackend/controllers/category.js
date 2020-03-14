@@ -7,7 +7,7 @@ exports.getCategoryById = (req, res, next, id) => {
                 error: "Category not found in DB"
             });
         }
-        req.category = router;
+        req.category = cate;
         next();
     });
 };
@@ -31,10 +31,23 @@ exports.getCategory = (req, res) => {
 exports.getAllCategory = (req, res) => {
     Category.find().exec((err, allCategory) => {
         if (err) {
-            return res.status(404).json({
+            return res.status(400).json({
                 error: "No category found"
             });
         }
         res.json(allCategory);
+    });
+};
+
+exports.updateCategory = (req, res) => {
+    const category = req.category;
+    category.name = req.body.name;
+    category.save((err, updatedCategory) => {
+        if (err) {
+            return res.status(400).json({
+                error: "Failed to update category"
+            });
+        }
+        res.json(updatedCategory)
     });
 };
