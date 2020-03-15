@@ -48,12 +48,12 @@ exports.updateCategory = (req, res) => {
                 error: "Failed to update category"
             });
         }
-        res.json(updatedCategory)
+        res.json(updatedCategory);
     });
 };
 
 exports.removeCategory = (req, res) => {
-    const category = req.category
+    const category = req.category;
     category.remove((err, category) => {
         if (err) {
             return res.status(404).json({
@@ -61,7 +61,7 @@ exports.removeCategory = (req, res) => {
             });
         }
         res.json({
-            message: `Successfully deleted ${category} category`
-        })
-    })
-}
+            message: `Successfully deleted ${category.name} category`
+        });
+    });
+};
