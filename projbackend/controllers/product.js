@@ -1,4 +1,7 @@
 const Product = require("../models/product");
+const formidable = require("formidable")
+const _ = require("lodash")
+const fs = require("fs")
 
 exports.getProductById = (req, res, next, id) => {
     Product.findById(id).populate("category").exec((err, product) => {
@@ -11,3 +14,6 @@ exports.getProductById = (req, res, next, id) => {
         next();
     });
 };
+
+exports.createProduct = (req, res) => {
+}
