@@ -27,6 +27,13 @@ exports.createProduct = (req, res) => {
                 error: "Problem with image"
             });
         }
+        const { name, description, price, category, stock } = fields;
+        if (!name || !description || !price || !category || !stock) {
+            return res.status(400).json({
+                error: "Please include all fields"
+            });
+        }
+
         let product = new Product(fields);
 
         //handling files
