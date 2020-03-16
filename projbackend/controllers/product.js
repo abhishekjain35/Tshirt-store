@@ -71,3 +71,19 @@ exports.photo = (req, res, next) => {
     }
     next();
 };
+
+exports.deleteProduct = (req, res) => {
+    let product = req.product;
+    product.remove((err, deletedProduct) => {
+        if (err) {
+            return res.json({
+                error: "Failed to delete product"
+            });
+        }
+        res.json({
+            message: "Successfully deleted product",
+            deletedProduct
+        })
+    });
+};
+
