@@ -127,7 +127,7 @@ exports.updateProduct = (req, res) => {
 
 exports.getAllProducts = (req, res) => {
     let limit = req.query.limit ? parseInt(req.query.limit) : 8;
-    let sortBy = req.query.sortBy ? req.query.sortBy : "_id"
+    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
     Product.find()
         .select("-photo")
         .populate("category")
@@ -141,4 +141,28 @@ exports.getAllProducts = (req, res) => {
             }
             res.json(products);
         });
+};
+
+exports.updateStock = (req, res, next) => {
+    let productOperations = req.body.order.products.map(item => {
+        return {
+            updateOne: {
+                filter: { _id: item._id },
+                update: {
+                    $inc: {
+                        stock: -item.count,
+                        sold: +item.count
+                    }
+                }
+            }
+        };
+    });
+    Product.bulkWrite(productOperations, {}, (err, products) => {
+        if(err){
+            return res.status(400).json({
+                error: "Bulk Operation failed."
+            })
+        }
+        next()
+    });
 };
