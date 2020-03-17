@@ -124,3 +124,21 @@ exports.updateProduct = (req, res) => {
         });
     });
 };
+
+exports.getAllProducts = (req, res) => {
+    let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+    let sortBy = req.query.sortBy ? req.query.sortBy : "_id"
+    Product.find()
+        .select("-photo")
+        .populate("category")
+        .sort([[sortBy, "asc"]])
+        .limit(limit)
+        .exec((err, products) => {
+            if (err) {
+                return res.json({
+                    error: "No products found."
+                });
+            }
+            res.json(products);
+        });
+};

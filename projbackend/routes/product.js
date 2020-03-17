@@ -7,7 +7,8 @@ const {
     getProduct,
     photo,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    getAllProducts
 } = require("../controllers/product");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 const { getUserById } = require("../controllers/user");
@@ -43,5 +44,8 @@ router.put(
     isAdmin,
     updateProduct
 );
+
+//listing route
+router.get("/products", getAllProducts)
 
 module.exports = router;
