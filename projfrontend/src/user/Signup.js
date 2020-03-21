@@ -2,6 +2,20 @@ import React, { useState } from "react";
 import Base from "./../core/Base";
 
 const Signup = () => {
+    const [values, setValues] = useState({
+        name: "",
+        email: "",
+        password: "",
+        error: "",
+        success: false
+    });
+
+    const { name, email, password, error, success } = values;
+
+    const handleChange = input => event => {
+        setValues({ ...values, error: false, [input]: event.target.value });
+    };
+
     const SignupForm = () => {
         return (
             <div className="row">
@@ -9,15 +23,15 @@ const Signup = () => {
                     <form>
                         <div className="form-group">
                             <label className="text-light">Name</label>
-                            <input className="form-control" type="text" />
+                            <input onChange={handleChange("name")} className="form-control" type="text" />
                         </div>
                         <div className="form-group">
                             <label className="text-light">Email</label>
-                            <input className="form-control" type="email" />
+                            <input onChange={handleChange("email")} className="form-control" type="email" />
                         </div>
                         <div className="form-group">
                             <label className="text-light">Password</label>
-                            <input className="form-control" type="password" />
+                            <input onChange={handleChange("password")} className="form-control" type="password" />
                         </div>
                         <button className="btn btn-success btn-block">
                             Submit
