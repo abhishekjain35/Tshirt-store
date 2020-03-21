@@ -19,6 +19,25 @@ const Signin = () => {
         setValues({ ...values, error: false, [input]: event.target.value });
     };
 
+    const onSubmit = event => {
+        event.preventDefault();
+        setValues({ ...values, error: false, loading: true });
+        signin({ email, password })
+            .then(data => {
+                if (data.error) {
+                    setValues({ ...values, error: data.error, loading: false });
+                } else {
+                    authenticate(data, () => {
+                        setValues({
+                            ...values,
+                            didRedirect: true
+                        });
+                    });
+                }
+            })
+            .catch(console.log("signin failed"));
+    };
+
     const successMessage = () => {
         return (
             <div className="row">
@@ -73,7 +92,10 @@ const Signin = () => {
                                 type="password"
                             />
                         </div>
-                        <button onClick={onSubmit} className="btn btn-success btn-block">
+                        <button
+                            onClick={onSubmit}
+                            className="btn btn-success btn-block"
+                        >
                             Submit
                         </button>
                     </form>
