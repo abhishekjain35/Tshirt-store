@@ -4,7 +4,6 @@ import { API } from "./../backend";
 import Base from "./Base";
 
 const Home = () => {
-    console.log("API IS", API);
     return (
         <Base title="Home Page" description="Welcome to the Tshirt store">
             <div className="row">

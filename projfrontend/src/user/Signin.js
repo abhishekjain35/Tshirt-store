@@ -38,19 +38,26 @@ const Signin = () => {
             .catch(console.log("signin failed"));
     };
 
-    const successMessage = () => {
+    const performRedirect = () => {
+        if (didRedirect) {
+            if (user && user.role === 1) {
+                return <p>redirect to admin</p>;
+            } else {
+                return <p>redirect to user dashboard</p>;
+            }
+        }
+        if (isAuthenticated()) {
+            return <Redirect to="/" />;
+        }
+    };
+
+    const loadingMessage = () => {
         return (
-            <div className="row">
-                <div className="col-md-6 offset-sm-3 text-left">
-                    <div
-                        className="alert alert-success"
-                        style={{ display: success ? "" : "none" }}
-                    >
-                        Account Created Successfully. Please{" "}
-                        <Link to="/signin">Login Here</Link>
-                    </div>
+            loading && (
+                <div className="alert alert-info">
+                    <h2>Loading...</h2>
                 </div>
-            </div>
+            )
         );
     };
 
@@ -105,7 +112,11 @@ const Signin = () => {
     };
     return (
         <Base title="Signin page" description="Feel free to Signin!">
+            {loadingMessage()}
+            {errorMessage()}
             {SigninForm()}
+            {performRedirect()}
+            <p className="text-white text-center">{JSON.stringify(values)}</p>
         </Base>
     );
 };
