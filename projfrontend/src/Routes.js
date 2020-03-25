@@ -20,7 +20,7 @@ const Routes = () => {
                     exact
                     component={UserDashBoard}
                 />
-                <PrivateRoute
+                <AdminRoute
                     path="/admin/dashboard"
                     exact
                     component={AdminDashBoard}
