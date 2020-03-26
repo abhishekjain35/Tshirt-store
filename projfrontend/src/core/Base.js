@@ -8,7 +8,7 @@ const Base = ({
     children
 }) => {
     return (
-        <div className="overflow-auto">
+        <div>
             <Menu />
             <div className="container-fluid">
                 <div className="jumbotron bg-dark text-white text-center ">

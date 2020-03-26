@@ -53,8 +53,10 @@ const AdminDashBoard = () => {
     };
     const adminRight = () => {
         return (
-            <div>
-                <h1>Hi admin</h1>
+            <div className="card mb-4">
+                <h4 className="card-header">
+                    Admin Information
+                </h4>
             </div>
         );
     };
