@@ -8,17 +8,17 @@ const Base = ({
     children
 }) => {
     return (
-        <div>
+        <div className="overflow-auto">
             <Menu />
             <div className="container-fluid">
-                <div className="jumbotron bg-dark text-white text-center mb-0">
+                <div className="jumbotron bg-dark text-white text-center ">
                     <h3 className="display-4">{title}</h3>
                     <p className="lead">{description}</p>
                 </div>
                 <div className={className}>{children}</div>
             </div>
             <footer className="footer bg-dark mt-auto">
-                <div className="container-fluid bg-success text-white text-center py-3">
+                <div className="container-fluid bg-success text-white text-center">
                     <h4>If you got any questions feel free to reach out</h4>
                     <button className="btn btn-warning btn-lg">
                         Contact Us
