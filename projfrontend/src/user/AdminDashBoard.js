@@ -56,6 +56,25 @@ const AdminDashBoard = () => {
             <div className="card mb-4">
                 <h4 className="card-header">
                     Admin Information
+                    <ul className="lift-group">
+                        <li className="list-group-item">
+                            <span className="badge badge-success mr-2">
+                                Name:
+                            </span>{" "}
+                            {name}
+                        </li>
+                        <li className="list-group-item">
+                            <span className="badge badge-success mr-2">
+                                Email:
+                            </span>{" "}
+                            {email}
+                        </li>
+                        <li className="list-group-item">
+                            <span className="badge badge-danger">
+                                Admin area
+                            </span>
+                        </li>
+                    </ul>
                 </h4>
             </div>
         );
