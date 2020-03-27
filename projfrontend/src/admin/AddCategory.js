@@ -10,6 +10,14 @@ const AddCategory = () => {
 
     const { user, token } = isAuthenticated();
 
+    const goBack = () => (
+        <div className="mt-5">
+            <Link className="btn btn-sm btn-info mb-3" to="/admin/dashboard">
+                Admin Home
+            </Link>
+        </div>
+    );
+
     const categoryForm = () => (
         <form>
             <div className="form-group">
@@ -35,7 +43,10 @@ const AddCategory = () => {
             className="container bg-info p-4"
         >
             <div className="row bg-white rounded">
-                <div className="col-md-8 offset-md-2">{categoryForm()}</div>
+                <div className="col-md-8 offset-md-2">
+                    {categoryForm()}
+                    {goBack()}
+                </div>
             </div>
         </Base>
     );
