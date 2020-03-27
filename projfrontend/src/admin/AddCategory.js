@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Base from "../core/Base";
 import { isAuthenticated } from "../auth/helper";
 import { Link } from "react-router-dom";
+import { createCategory } from './helper/adminapicall';
 
 const AddCategory = () => {
     const [name, setName] = useState("initialState");
@@ -18,6 +19,17 @@ const AddCategory = () => {
         </div>
     );
 
+    const handleChange = e => {
+        setError("");
+        setName(e.target.value);
+    };
+
+    const onSubmit = e => {
+        e.preventDefault();
+        setError("");
+        setSuccess(false);
+    };
+
     const categoryForm = () => (
         <form>
             <div className="form-group">
@@ -27,9 +39,11 @@ const AddCategory = () => {
                     autoFocus
                     required
                     className="form-control my-3"
+                    onChange={handleChange}
+                    value={name}
                     placeholder="For ex. Summer"
                 />
-                <button className="btn btn-outline-info">
+                <button onClick={onSubmit} className="btn btn-outline-info">
                     Create Category
                 </button>
             </div>
