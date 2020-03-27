@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Base from "../core/Base";
 import { isAuthenticated } from "../auth/helper";
 import { Link } from "react-router-dom";
-import { createCategory } from './helper/adminapicall';
+import { createCategory } from "./helper/adminapicall";
 
 const AddCategory = () => {
-    const [name, setName] = useState("initialState");
+    const [name, setName] = useState("");
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
 
@@ -28,6 +28,28 @@ const AddCategory = () => {
         e.preventDefault();
         setError("");
         setSuccess(false);
+        createCategory(user._id, token, { name }).then(data => {
+            if (data.error) {
+                setError(true);
+            } else {
+                setError("");
+                setSuccess(true);
+                setName("");
+            }
+        });
+    };
+
+    const successMessage = () => {
+        if (success) {
+            return (
+                <h4 className="text-success">Category Created successfully</h4>
+            );
+        }
+    };
+    const warningMessage = () => {
+        if (error) {
+            return <h4 className="text-warning">Failed to create category</h4>;
+        }
     };
 
     const categoryForm = () => (
@@ -58,6 +80,8 @@ const AddCategory = () => {
         >
             <div className="row bg-white rounded">
                 <div className="col-md-8 offset-md-2">
+                    {successMessage()}
+                    {warningMessage()}
                     {categoryForm()}
                     {goBack()}
                 </div>
