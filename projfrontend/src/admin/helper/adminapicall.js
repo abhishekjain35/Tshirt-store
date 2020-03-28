@@ -23,7 +23,7 @@ export const getCategories = () => {
 };
 
 export const createProduct = (userId, token, product) => {
-    return fetch(`${API}/product/create/:${userId}`, {
+    return fetch(`${API}/product/create/${userId}`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -46,6 +46,19 @@ export const getProducts = () => {
 export const getAProduct = productId => {
     return fetch(`${API}/product/${productId}`, {
         method: "GET"
+    })
+        .then(res => res.json())
+        .catch(err => console.log(err));
+};
+
+export const updateProduct = (productId, userId, token, product) => {
+    return fetch(`${API}/product/create/${productId}/${userId}`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: product
     })
         .then(res => res.json())
         .catch(err => console.log(err));
