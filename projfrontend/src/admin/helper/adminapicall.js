@@ -57,7 +57,8 @@ export const updateProduct = (productId, userId, token, product) => {
         headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`
-        }
+        },
+        body: product
     })
         .then(res => res.json())
         .catch(err => console.log(err));
@@ -69,8 +70,7 @@ export const deleteProduct = (productId, userId, token) => {
         headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`
-        },
-        body: product
+        }
     })
         .then(res => res.json())
         .catch(err => console.log(err));
