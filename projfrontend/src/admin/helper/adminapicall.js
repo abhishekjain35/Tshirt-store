@@ -53,7 +53,19 @@ export const getAProduct = productId => {
 
 export const updateProduct = (productId, userId, token, product) => {
     return fetch(`${API}/product/create/${productId}/${userId}`, {
-        method: "POST",
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(res => res.json())
+        .catch(err => console.log(err));
+};
+
+export const deleteProduct = (productId, userId, token) => {
+    return fetch(`${API}/product/${productId}/${userId}`, {
+        method: "DELETE",
         headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`
