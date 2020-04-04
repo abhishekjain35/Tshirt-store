@@ -2,6 +2,8 @@ import React from "react";
 import Base from "./../core/Base";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { getCategories } from "./helper/adminapicall";
+import { useEffect } from "react";
 
 const AddProduct = () => {
     const [values, setValues] = useState({
@@ -9,9 +11,43 @@ const AddProduct = () => {
         description: "",
         price: "",
         stock: "",
+        photo: "",
+        categories: [],
+        category: "",
+        loading: false,
+        error: "",
+        createdProduct: "",
+        getRedirect: false,
+        formData: "",
     });
 
-    const { name, description, price, stock } = values;
+    const {
+        name,
+        description,
+        price,
+        stock,
+        categories,
+        category,
+        loading,
+        error,
+        createdProduct,
+        getRedirect,
+        formData,
+    } = values;
+
+    const preload = () => {
+        getCategories().then((data) => {
+            if (data.error) {
+                setValues({ ...values, error: data.error });
+            } else {
+                setValues({ ...values, categories: data, formData: new FormData() });
+            }
+        });
+    };
+
+    useEffect(() => {
+        preload();
+    }, []);
 
     const onSubmit = () => {};
     const handleChange = (name) => (event) => {};
@@ -81,7 +117,7 @@ const AddProduct = () => {
             <button
                 type="submit"
                 onClick={onSubmit}
-                className="btn btn-outline-success"
+                className="btn btn-outline-success mb-3"
             >
                 Create Product
             </button>
