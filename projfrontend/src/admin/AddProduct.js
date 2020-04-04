@@ -57,7 +57,12 @@ const AddProduct = () => {
     }, []);
 
     const onSubmit = () => {};
-    const handleChange = (name) => (event) => {};
+    const handleChange = (name) => (event) => {
+        const value =
+            name === "photo" ? event.target.file[0] : event.target.value;
+        formData.set(name, value);
+        setValues({...values, [name]: value})
+    };
 
     const createProductForm = () => (
         <form>
