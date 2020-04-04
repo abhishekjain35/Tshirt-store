@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { getCategories } from "./helper/adminapicall";
 import { useEffect } from "react";
+import { isAuthenticated } from "./../auth/helper/index";
 
 const AddProduct = () => {
+    const { user, token } = isAuthenticated();
+
     const [values, setValues] = useState({
         name: "",
         description: "",
@@ -40,7 +43,11 @@ const AddProduct = () => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
-                setValues({ ...values, categories: data, formData: new FormData() });
+                setValues({
+                    ...values,
+                    categories: data,
+                    formData: new FormData(),
+                });
             }
         });
     };
@@ -100,8 +107,12 @@ const AddProduct = () => {
                     placeholder="Category"
                 >
                     <option>Select</option>
-                    <option value="a">a</option>
-                    <option value="b">b</option>
+                    {categories &&
+                        categories.map((cate, index) => (
+                            <option key={index} value={cate._id}>
+                                {cate.name}
+                            </option>
+                        ))}
                 </select>
             </div>
             <div className="form-group">
