@@ -79,9 +79,18 @@ const AddProduct = () => {
             .catch();
     };
 
+    const successMessage = () => (
+        <div
+            className="alert alert-success mt-3"
+            style={{ display: createdProduct ? "" : "none" }}
+        >
+            <h4>{createdProduct} created SuccessFully</h4>
+        </div>
+    );
+
     const handleChange = (name) => (event) => {
         const value =
-            name === "photo" ? event.target.file[0] : event.target.value;
+            name === "photo" ? event.target.files[0] : event.target.value;
         formData.set(name, value);
         setValues({ ...values, [name]: value });
     };
@@ -144,7 +153,7 @@ const AddProduct = () => {
             </div>
             <div className="form-group">
                 <input
-                    onChange={handleChange("quantity")}
+                    onChange={handleChange("stock")}
                     type="number"
                     className="form-control"
                     placeholder="Quantity"
@@ -173,6 +182,7 @@ const AddProduct = () => {
             </Link>
             <div className="row bg-dark text-white rounded">
                 <div className="col-md-8 offset-md-2">
+                    {successMessage()}
                     {createProductForm()}
                 </div>
             </div>
