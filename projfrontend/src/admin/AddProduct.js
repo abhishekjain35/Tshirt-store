@@ -2,7 +2,7 @@ import React from "react";
 import Base from "./../core/Base";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { getCategories } from "./helper/adminapicall";
+import { getCategories, createProduct } from "./helper/adminapicall";
 import { useEffect } from "react";
 import { isAuthenticated } from "./../auth/helper/index";
 
@@ -56,12 +56,34 @@ const AddProduct = () => {
         preload();
     }, []);
 
-    const onSubmit = () => {};
+    const onSubmit = (e) => {
+        e.preventDefault();
+        setValues({ ...values, error: "", loading: true });
+        createProduct(user._id, token, formData)
+            .then((data) => {
+                if (data.error) {
+                    setValues({ ...values, error: data.error });
+                } else {
+                    setValues({
+                        ...values,
+                        name: "",
+                        description: "",
+                        price: "",
+                        photo: "",
+                        stock: "",
+                        loading: false,
+                        createdProduct: data.name,
+                    });
+                }
+            })
+            .catch();
+    };
+
     const handleChange = (name) => (event) => {
         const value =
             name === "photo" ? event.target.file[0] : event.target.value;
         formData.set(name, value);
-        setValues({...values, [name]: value})
+        setValues({ ...values, [name]: value });
     };
 
     const createProductForm = () => (
