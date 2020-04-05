@@ -88,6 +88,16 @@ const AddProduct = () => {
         </div>
     );
 
+    const errorMessage = () => {
+        if (error) {
+            return (
+                <div className="alert alert-warning mt-3">
+                    <h4>Failed to create product</h4>
+                </div>
+            );
+        }
+    };
+
     const handleChange = (name) => (event) => {
         const value =
             name === "photo" ? event.target.files[0] : event.target.value;
@@ -182,6 +192,7 @@ const AddProduct = () => {
             </Link>
             <div className="row bg-dark text-white rounded">
                 <div className="col-md-8 offset-md-2">
+                    {errorMessage()}
                     {successMessage()}
                     {createProductForm()}
                 </div>
