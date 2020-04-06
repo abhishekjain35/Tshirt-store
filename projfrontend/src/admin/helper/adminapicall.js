@@ -6,20 +6,20 @@ export const createCategory = (userId, token, categoryName) => {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(categoryName)
+        body: JSON.stringify(categoryName),
     })
-        .then(response => response.json())
-        .catch(err => console.log(err));
+        .then((response) => response.json())
+        .catch((err) => console.log(err));
 };
 
 export const getCategories = () => {
     return fetch(`${API}/categories`, {
-        method: "GET"
+        method: "GET",
     })
-        .then(res => res.json())
-        .catch(err => console.log(err));
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
 };
 
 export const createProduct = (userId, token, product) => {
@@ -27,41 +27,41 @@ export const createProduct = (userId, token, product) => {
         method: "POST",
         headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
         },
-        body: product
+        body: product,
     })
-        .then(res => res.json())
-        .catch(err => console.log(err));
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
 };
 
 export const getProducts = () => {
     return fetch(`${API}/products`, {
-        method: "GET"
+        method: "GET",
     })
-        .then(res => res.json())
-        .catch(err => console.log(err));
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
 };
 
-export const getAProduct = productId => {
+export const getAProduct = (productId) => {
     return fetch(`${API}/product/${productId}`, {
-        method: "GET"
+        method: "GET",
     })
-        .then(res => res.json())
-        .catch(err => console.log(err));
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
 };
 
 export const updateProduct = (productId, userId, token, product) => {
-    return fetch(`${API}/product/create/${productId}/${userId}`, {
+    return fetch(`${API}/product/${productId}/${userId}`, {
         method: "PUT",
         headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
         },
-        body: product
+        body: product,
     })
-        .then(res => res.json())
-        .catch(err => console.log(err));
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
 };
 
 export const deleteProduct = (productId, userId, token) => {
@@ -69,9 +69,9 @@ export const deleteProduct = (productId, userId, token) => {
         method: "DELETE",
         headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${token}`
-        }
+            Authorization: `Bearer ${token}`,
+        },
     })
-        .then(res => res.json())
-        .catch(err => console.log(err));
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
 };

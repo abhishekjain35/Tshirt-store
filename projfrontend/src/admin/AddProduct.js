@@ -30,11 +30,8 @@ const AddProduct = ({history}) => {
         price,
         stock,
         categories,
-        category,
-        loading,
         error,
         createdProduct,
-        getRedirect,
         formData,
     } = values;
 
