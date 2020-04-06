@@ -76,7 +76,7 @@ export const deleteProduct = (productId, userId, token) => {
         .catch((err) => console.log(err));
 };
 
-const deleteCategory = (categoryId, userId, token) => {
+export const deleteCategory = (categoryId, userId, token) => {
     return fetch(`${API}/category/${categoryId}/${userId}`, {
         method: "DELETE",
         headers: {

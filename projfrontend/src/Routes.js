@@ -55,6 +55,11 @@ const Routes = () => {
                     exact
                     component={UpdateProduct}
                 />
+                <AdminRoute
+                    path="/admin/category/update/:categoryId"
+                    exact
+                    component={UpdateProduct}
+                />
             </Switch>
         </BrowserRouter>
     );
