@@ -1,12 +1,12 @@
 import React from "react";
 import Base from "./../core/Base";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { useState } from "react";
 import { getCategories, createProduct } from "./helper/adminapicall";
 import { useEffect } from "react";
 import { isAuthenticated } from "./../auth/helper/index";
 
-const AddProduct = () => {
+const AddProduct = ({history}) => {
     const { user, token } = isAuthenticated();
 
     const [values, setValues] = useState({
@@ -95,6 +95,14 @@ const AddProduct = () => {
                     <h4>Failed to create product</h4>
                 </div>
             );
+        }
+    };
+
+    const redirect = () => {
+        if (createdProduct) {
+            setTimeout(() => {
+                return history.push("/admin/dashboard");
+            }, 2000);
         }
     };
 
@@ -192,6 +200,7 @@ const AddProduct = () => {
             </Link>
             <div className="row bg-dark text-white rounded">
                 <div className="col-md-8 offset-md-2">
+                    {redirect()}
                     {errorMessage()}
                     {successMessage()}
                     {createProductForm()}
@@ -201,4 +210,4 @@ const AddProduct = () => {
     );
 };
 
-export default AddProduct;
+export default withRouter(AddProduct);
