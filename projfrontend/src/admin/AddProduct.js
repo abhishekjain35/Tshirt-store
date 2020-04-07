@@ -35,6 +35,8 @@ const AddProduct = ({history}) => {
         formData,
     } = values;
 
+    console.log(name)
+
     const preload = () => {
         getCategories().then((data) => {
             if (data.error) {

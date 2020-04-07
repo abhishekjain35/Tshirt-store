@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Base from "./../core/Base";
 import { Link } from "react-router-dom";
 import { isAuthenticated } from "./../auth/helper/index";
@@ -37,14 +37,26 @@ const UpdateProduct = ({ match, history }) => {
         formData,
     } = values;
 
-    const preload = (productId) => {
+    const preloadCategories = useCallback(() => {
+        getCategories().then((data) => {
+            if (data.error) {
+                setValues({ error: data.error });
+            } else {
+                setValues({
+                    categories: data,
+                    formData: new FormData(),
+                });
+            }
+        });
+    }, [])
+
+    const preload = useCallback((productId) => {
         getAProduct(productId).then((data) => {
             if (data.error) {
-                setValues({ ...values, error: data.error });
+                setValues({ error: data.error });
             } else {
                 preloadCategories();
                 setValues({
-                    ...values,
                     name: data.name,
                     description: data.description,
                     price: data.price,
@@ -54,24 +66,12 @@ const UpdateProduct = ({ match, history }) => {
                 });
             }
         });
-    };
+    }, [preloadCategories]);
 
-    const preloadCategories = () => {
-        getCategories().then((data) => {
-            if (data.error) {
-                setValues({ ...values, error: data.error });
-            } else {
-                setValues({
-                    categories: data,
-                    formData: new FormData(),
-                });
-            }
-        });
-    };
 
     useEffect(() => {
         preload(match.params.productId);
-    }, []);
+    }, [preload, match]);
 
     const onSubmit = (e) => {
         e.preventDefault();
