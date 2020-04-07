@@ -48,6 +48,16 @@ const UpdateCategory = ({ match }) => {
         </div>
     );
 
+    const errorMessage = () => {
+        if (error) {
+            return (
+                <div className="alert alert-warning mt-3">
+                    <h4>Failed to update category</h4>
+                </div>
+            );
+        }
+    };
+
     const categoryForm = () => (
         <form>
             <div className="form-group">
@@ -77,6 +87,7 @@ const UpdateCategory = ({ match }) => {
             <Link to="/admin/dashboard" className="btn btn-md btn-dark mb-3">
                 Admin Home
             </Link>
+            {errorMessage()}
             {successMessage()}
             {categoryForm()}
         </Base>
