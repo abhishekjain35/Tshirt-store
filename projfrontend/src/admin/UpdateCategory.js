@@ -10,28 +10,10 @@ const UpdateCategory = ({ match }) => {
     const [values, setValues] = useState({
         name: "",
         error: "",
-        createdProduct: ""
+        updatedCategory: "",
     });
 
-    const { name, error } = values;
-
-    const preload = useCallback((categoryId) => {
-        getACategory(categoryId).then((data) => {
-            if (data.error) {
-                setValues({ error: data.error });
-            } else {
-                // console.log(data);
-                setValues({
-                    name: data.name,
-                    categoryId: data._id,
-                });
-            }
-        });
-    }, [])
-
-    useEffect(() => {
-        preload(match.params.categoryId);
-    }, [preload, match]);
+    const { name, error, updatedCategory } = values;
 
     const handleChange = (name) => (event) => {
         const value = event.target.value;
@@ -51,16 +33,25 @@ const UpdateCategory = ({ match }) => {
                 setValues({
                     ...values,
                     name: "",
-                    createdProduct: data.name,
+                    updatedCategory: data.name,
                 });
             }
         });
     };
 
+    const successMessage = () => (
+        <div
+            className="alert alert-success mt-3"
+            style={{ display: updatedCategory ? "" : "none" }}
+        >
+            <h4>{updatedCategory} updated SuccessFully</h4>
+        </div>
+    );
+
     const categoryForm = () => (
         <form>
             <div className="form-group">
-                <p className="lead">Enter new Category</p>
+                <h3>Enter new Category</h3>
                 <input
                     type="text"
                     autoFocus
@@ -86,6 +77,7 @@ const UpdateCategory = ({ match }) => {
             <Link to="/admin/dashboard" className="btn btn-md btn-dark mb-3">
                 Admin Home
             </Link>
+            {successMessage()}
             {categoryForm()}
         </Base>
     );
