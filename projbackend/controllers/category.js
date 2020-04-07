@@ -43,6 +43,7 @@ exports.updateCategory = (req, res) => {
     const category = req.category;
     category.name = req.body.name;
     category.save((err, updatedCategory) => {
+        console.log(err)
         if (err) {
             return res.status(400).json({
                 error: "Failed to update category"
