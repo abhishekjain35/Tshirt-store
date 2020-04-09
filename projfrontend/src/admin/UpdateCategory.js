@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { isAuthenticated } from "./../auth/helper/index";
 import Base from "../core/Base";
-import { getACategory, updateCategory } from "./helper/adminapicall";
+import { updateCategory } from "./helper/adminapicall";
 
 const UpdateCategory = ({ match }) => {
     const { user, token } = isAuthenticated();

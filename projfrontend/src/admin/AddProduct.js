@@ -35,8 +35,6 @@ const AddProduct = ({history}) => {
         formData,
     } = values;
 
-    console.log(name)
-
     const preload = () => {
         getCategories().then((data) => {
             if (data.error) {
@@ -53,6 +51,7 @@ const AddProduct = ({history}) => {
 
     useEffect(() => {
         preload();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const onSubmit = (e) => {

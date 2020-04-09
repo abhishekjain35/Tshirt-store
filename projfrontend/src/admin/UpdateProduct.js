@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Base from "./../core/Base";
 import { Link } from "react-router-dom";
 import { isAuthenticated } from "./../auth/helper/index";
@@ -37,41 +37,35 @@ const UpdateProduct = ({ match, history }) => {
         formData,
     } = values;
 
-    const preloadCategories = useCallback(() => {
-        getCategories().then((data) => {
-            if (data.error) {
-                setValues({ error: data.error });
-            } else {
-                setValues({
-                    categories: data,
-                    formData: new FormData(),
-                });
-            }
-        });
-    }, [])
-
-    const preload = useCallback((productId) => {
-        getAProduct(productId).then((data) => {
-            if (data.error) {
-                setValues({ error: data.error });
-            } else {
-                preloadCategories();
-                setValues({
-                    name: data.name,
-                    description: data.description,
-                    price: data.price,
-                    category: data.category._id,
-                    stock: data.stock,
-                    formData: new FormData(),
-                });
-            }
-        });
-    }, [preloadCategories]);
-
-
     useEffect(() => {
+        const preload = async (productId) => {
+            await getAProduct(productId).then(async (data) => {
+                if (data.error) {
+                    setValues({ error: data.error });
+                } else {
+                    const data1 = await getCategories();
+                    if (data1.error) {
+                        setValues({ error: data1.error });
+                    } else {
+                        console.log("HI");
+                        categories.push(data1);
+                        setValues({
+                            ...values,
+                            name: data.name,
+                            description: data.description,
+                            price: data.price,
+                            category: data.category._id,
+                            stock: data.stock,
+                            formData: new FormData(),
+                        });
+                    }
+                }
+            });
+        };
+
         preload(match.params.productId);
-    }, [preload, match]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [categories, match]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -178,8 +172,8 @@ const UpdateProduct = ({ match, history }) => {
                     placeholder="Category"
                 >
                     <option>Select</option>
-                    {categories &&
-                        categories.map((cate, index) => (
+                    {categories[0] &&
+                        categories[0].map((cate, index) => (
                             <option key={index} value={cate._id}>
                                 {cate.name}
                             </option>
