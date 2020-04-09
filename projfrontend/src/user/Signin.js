@@ -10,7 +10,7 @@ const Signin = () => {
         error: "",
         loading: false,
         didRedirect: false
-    })
+    });
 
     const { email, password, error, loading, didRedirect } = values;
     const { user } = isAuthenticated();
@@ -35,7 +35,7 @@ const Signin = () => {
                     });
                 }
             })
-            .catch(err => console.log(err));
+            .catch(console.log("signin failed"));
     };
 
     const performRedirect = () => {

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { isAuthenticated } from "./../auth/helper/index";
 import Base from "../core/Base";
-import { updateCategory } from "./helper/adminapicall";
+import { getACategory, updateCategory } from "./helper/adminapicall";
 
-const UpdateCategory = ({ match, history }) => {
+const UpdateCategory = ({ match }) => {
     const { user, token } = isAuthenticated();
 
     const [values, setValues] = useState({
@@ -58,14 +58,6 @@ const UpdateCategory = ({ match, history }) => {
         }
     };
 
-    const redirect = () => {
-        if (updatedCategory || error) {
-            setTimeout(() => {
-                return history.push("/admin/dashboard");
-            }, 2000);
-        }
-    };
-
     const categoryForm = () => (
         <form>
             <div className="form-group">
@@ -95,7 +87,6 @@ const UpdateCategory = ({ match, history }) => {
             <Link to="/admin/dashboard" className="btn btn-md btn-dark mb-3">
                 Admin Home
             </Link>
-            {redirect()}
             {errorMessage()}
             {successMessage()}
             {categoryForm()}
