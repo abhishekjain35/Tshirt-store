@@ -14,7 +14,18 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
             )
         );
     };
-    const showRemoveFromCart = (removeFromCart) => {};
+    const showRemoveFromCart = (removeFromCart) => {
+        return (
+            removeFromCart && (
+                <button
+                    onClick={() => {}}
+                    className="btn btn-block btn-outline-danger mt-2 mb-2"
+                >
+                    Remove from cart
+                </button>
+            )
+        );
+    };
 
     return (
         <div className="card text-white bg-dark border border-info ">
@@ -28,12 +39,7 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
                 <div className="row">
                     <div className="col-12">{showAddToCart(addToCart)}</div>
                     <div className="col-12">
-                        <button
-                            onClick={() => {}}
-                            className="btn btn-block btn-outline-danger mt-2 mb-2"
-                        >
-                            Remove from cart
-                        </button>
+                        {showRemoveFromCart(removeFromCart)}
                     </div>
                 </div>
             </div>
