@@ -6,7 +6,7 @@ import Card from './Card';
 const Home = () => {
     return (
         <Base title="Home Page" description="Welcome to the Tshirt store">
-            <div className="row">
+            <div className="row text-center">
                 <div className="col-4">
                     <Card />
                 </div>

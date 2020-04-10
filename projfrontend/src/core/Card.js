@@ -1,18 +1,12 @@
 import React from "react";
+import ImageHelper from "./helper/ImageHelper";
 
-const Card = () => {
+const Card = ({}) => {
     return (
         <div className="card text-white bg-dark border border-info ">
             <div className="card-header lead">A photo from pexels</div>
             <div className="card-body">
-                <div className="rounded border border-success p-2">
-                    <img
-                        src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                        alt="coding"
-                        style={{ maxHeight: "100%", maxWidth: "100%" }}
-                        className="mb-3 rounded"
-                    />
-                </div>
+                <ImageHelper />
                 <p className="lead bg-success font-weight-normal text-wrap">
                     this photo looks great
                 </p>
