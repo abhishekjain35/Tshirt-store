@@ -26,7 +26,7 @@ router.post(
 
 //Create Routes
 router.get("/product/:productId", getProduct);
-router.get("/product/photo/productId", photo);
+router.get("/product/photo/:productId", photo);
 
 //delete route
 router.delete(
