@@ -1,12 +1,12 @@
 import React from "react";
 import ImageHelper from "./helper/ImageHelper";
 
-const Card = ({}) => {
+const Card = ({product}) => {
     return (
         <div className="card text-white bg-dark border border-info ">
             <div className="card-header lead">A photo from pexels</div>
             <div className="card-body">
-                <ImageHelper />
+                <ImageHelper product={product} />
                 <p className="lead bg-success font-weight-normal text-wrap">
                     this photo looks great
                 </p>
