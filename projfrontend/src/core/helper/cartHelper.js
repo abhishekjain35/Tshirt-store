@@ -24,14 +24,14 @@ export const removeItemFromCart = (productId) => {
     let cart = [];
     if (typeof window !== undefined) {
         if (localStorage.getItem("cart")) {
-            return JSON.parse(localStorage.getItem("cart"));
+            cart = JSON.parse(localStorage.getItem("cart"));
         }
+        cart.forEach((product, i) => {
+            if (product._id === productId) {
+                return cart.splice(i, 1);
+            }
+        });
+        localStorage.setItem("cart", JSON.stringify(cart));
     }
-    cart.map((product, i) => {
-        if (product._id === productId) {
-            cart.splice(i, 1);
-        }
-    });
-    localStorage.setItem("cart", JSON.stringify(cart));
     return cart;
 };

@@ -3,7 +3,13 @@ import ImageHelper from "./helper/ImageHelper";
 import { Redirect } from "react-router-dom";
 import { addItemToCart, removeItemFromCart } from "./helper/cartHelper";
 
-const Card = ({ product, addToCart = true, removeFromCart = false }) => {
+const Card = ({
+    product,
+    addToCart = true,
+    removeFromCart = false,
+    setReload = f => f,
+    reload = undefined,
+}) => {
     const [redirect, setRedirect] = useState(false);
 
     const cardTitle = product ? product.name : "A photo from pexels";
@@ -38,7 +44,8 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
             removeFromCart && (
                 <button
                     onClick={() => {
-                        removeItemFromCart(product._id)
+                        removeItemFromCart(product._id);
+                        setReload(!reload);
                     }}
                     className="btn btn-block btn-outline-danger mt-2 mb-2"
                 >
