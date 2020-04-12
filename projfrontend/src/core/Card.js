@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ImageHelper from "./helper/ImageHelper";
 import { Redirect } from "react-router-dom";
-import { addItemToCart } from "./helper/cartHelper";
+import { addItemToCart, removeItemFromCart } from "./helper/cartHelper";
 
 const Card = ({ product, addToCart = true, removeFromCart = false }) => {
     const [redirect, setRedirect] = useState(false);
@@ -32,11 +32,14 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
             )
         );
     };
+
     const showRemoveFromCart = (removeFromCart) => {
         return (
             removeFromCart && (
                 <button
-                    onClick={() => {}}
+                    onClick={() => {
+                        removeItemFromCart(product._id)
+                    }}
                     className="btn btn-block btn-outline-danger mt-2 mb-2"
                 >
                     Remove from cart
