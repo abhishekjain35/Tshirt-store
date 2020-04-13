@@ -26,9 +26,20 @@ const StripeCheckout = ({
         return amount;
     };
 
+    const showStripeButton = () => {
+        return isAuthenticated() ? (
+            <button className="btn btn-success">Pay With Stripe</button>
+        ) : (
+            <Link to="/signin">
+                <button className="btn btn-warning">Signin</button>
+            </Link>
+        );
+    };
+
     return (
         <div>
             <h3 className="text-white">{getFinalPrice()}</h3>
+            {showStripeButton()}
         </div>
     );
 };
