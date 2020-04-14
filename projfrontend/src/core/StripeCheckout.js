@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { isAuthenticated } from "./../auth/helper/index";
 import { emptyCart, loadCart } from "./helper/cartHelper";
 import { Link } from "react-router-dom";
+import StripeCheckoutButton from "react-stripe-checkout";
 
 const StripeCheckout = ({
     products,
@@ -26,9 +27,20 @@ const StripeCheckout = ({
         return amount;
     };
 
+    const makePayment = (token) => {
+        
+    }
+
     const showStripeButton = () => {
         return isAuthenticated() ? (
-            <button className="btn btn-success">Pay With Stripe</button>
+            <StripeCheckoutButton
+            stripeKey=""
+            token={makePayment}
+            amount={getFinalPrice() * 100}
+            name="Buy T-shirts"
+            >
+                <button className="btn btn-success">Pay With Stripe</button>
+            </StripeCheckoutButton>
         ) : (
             <Link to="/signin">
                 <button className="btn btn-warning">Signin</button>
