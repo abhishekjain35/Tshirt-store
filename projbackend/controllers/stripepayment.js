@@ -1,4 +1,4 @@
-const stripe = require("stripe")("SECRET_KEY");
+const stripe = require("stripe")("sk_test_OU1PoSqcxDYInMz9TpR7fnWh008263sQ1z");
 const uuid = require("uuid/v4");
 
 exports.makePayment = (req, res) => {
@@ -16,12 +16,19 @@ exports.makePayment = (req, res) => {
             stripe.charges
                 .create(
                     {
-                        amount: amount,
+                        amount: amount * 100,
                         currency: "usd",
                         customer: customer.id,
                         receipt_email: token.email,
+                        description: "A Test Account",
                         shipping: {
                             name: token.card.name,
+                            address: {
+                                line1: token.card.address_line1,
+                                city: token.card.address_city,
+                                country: token.card.address_country,
+                                postal_code: token.card.address_zip,
+                            },
                         },
                     },
                     { idempotencyKey }

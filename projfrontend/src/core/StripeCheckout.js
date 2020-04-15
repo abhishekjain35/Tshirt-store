@@ -44,6 +44,8 @@ const StripeCheckout = ({
         })
             .then((res) => {
                 console.log(res);
+                const { status } = res;
+                console.log("STATUS", status)
             })
             .catch((err) => console.log(err));
     };
@@ -51,7 +53,7 @@ const StripeCheckout = ({
     const showStripeButton = () => {
         return isAuthenticated() ? (
             <StripeCheckoutButton
-                stripeKey=""
+                stripeKey="pk_test_hDeDJmlhkiE2Px71pMXkYGqB00UyI6QzWE"
                 token={makePayment}
                 amount={getFinalPrice() * 100}
                 name="Buy T-shirts"
