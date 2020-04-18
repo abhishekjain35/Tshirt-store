@@ -2,6 +2,13 @@ var braintree = require("braintree");
 
 var gateway = braintree.connect({
     environment: braintree.Environment.Sandbox,
+    merchantId: "548r8ymxqr75c4gw",
+    publicKey: "smdsb74d88ywdc7n",
+    privateKey: "f0dfc14ac9178434ec9bd1551d80e04b",
+});
+
+var gateway = braintree.connect({
+    environment: braintree.Environment.Sandbox,
     merchantId: "useYourMerchantId",
     publicKey: "useYourPublicKey",
     privateKey: "useYourPrivateKey",
@@ -30,9 +37,9 @@ exports.processPayment = (req, res) => {
         },
         function (err, result) {
             if (err) {
-                res.status(400).json()
-            } else{
-                res.json(result)
+                res.status(400).send(err);
+            } else {
+                res.send(result);
             }
         }
     );
