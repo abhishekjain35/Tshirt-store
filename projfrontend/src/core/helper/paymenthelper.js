@@ -9,7 +9,9 @@ export const getAToken = (userId, token) => {
             Authorization: `Bearer ${token}`,
         },
     })
-        .then((res) => res.json())
+        .then((res) => {
+            return res.json()
+        })
         .catch((err) => console.log(err));
 };
 

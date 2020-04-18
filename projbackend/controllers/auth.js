@@ -71,7 +71,6 @@ exports.isSignedIn = expressJwt({
 
 //Custom Middleware
 exports.isAuthenticated = (req, res, next) => {
-  // console.log(`abcd ${req.profile}`)
     let checker = req.profile && req.auth && req.profile._id == req.auth._id;
     if (!checker) {
         return res.status(403).json({
