@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { loadCart, emptyCart } from "./helper/cartHelper";
-import { Link } from "react-router-dom";
+import { emptyCart } from "./helper/cartHelper";
 import { getAToken, processPayment } from "./helper/paymenthelper";
 import { createOrder } from "./helper/OrderHelper";
 import { isAuthenticated } from "./../auth/helper/index";
@@ -32,32 +31,40 @@ const Payment = ({ products, setReload = (f) => f, reload = undefined }) => {
     const onPurchase = () => {
         setInfo({ loading: true });
         let nonce;
-        let getNonce = info.instance
-            .requestPaymentMethod()
-            .then((data) => {
-                nonce = data.nonce;
-                const paymentData = {
-                    paymentMethodNonce: nonce,
-                    amount: getAmount(),
-                };
-                processPayment(userId, token, paymentData)
-                    .then((res) => {
-                        setInfo({
-                            ...info,
-                            success: res.success,
-                            loading: false,
-                         });
-                    })
-                    .catch((err) => {
-                        setInfo({ loading: false, success: false });
+        let getNonce = info.instance.requestPaymentMethod().then((data) => {
+            nonce = data.nonce;
+            const paymentData = {
+                paymentMethodNonce: nonce,
+                amount: getAmount(),
+            };
+            processPayment(userId, token, paymentData)
+                .then((res) => {
+                    setInfo({
+                        ...info,
+                        success: res.success,
+                        loading: false,
                     });
-            })
+                    console.log("HI");
+                    console.log(res);
+                    const orderData = {
+                        products: products,
+                        transaction_id: res.transaction.id,
+                        amount: res.transaction.amount,
+                    };
+                    createOrder(userId, token, orderData);
+                    emptyCart();
+                    setReload(!reload);
+                })
+                .catch((err) => {
+                    setInfo({ loading: false, success: false });
+                });
+        });
     };
 
     const showBtDropIn = () => {
         return (
             <div>
-                {info.clientToken !== null && products.length > 0 ? (
+                {info.clientToken !== null && products ? (
                     <div>
                         <DropIn
                             options={{ authorization: info.clientToken }}
@@ -83,13 +90,13 @@ const Payment = ({ products, setReload = (f) => f, reload = undefined }) => {
         getToken(userId, token);
     }, []);
 
-   
-
     const getAmount = () => {
         let amount = 0;
-        products.map((p) => {
-            amount = amount + p.price;
-        });
+        if (products) {
+            products.map((p) => {
+                amount = amount + p.price;
+            });
+        }
         return amount;
     };
 

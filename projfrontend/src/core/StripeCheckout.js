@@ -1,31 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { isAuthenticated } from "./../auth/helper/index";
-import { emptyCart, loadCart } from "./helper/cartHelper";
 import { Link } from "react-router-dom";
 import StripeCheckoutButton from "react-stripe-checkout";
 import { API } from "./../backend";
-import { createOrder } from "./helper/OrderHelper";
 
-const StripeCheckout = ({
-    products,
-    setReload = (f) => f,
-    reload = undefined,
-}) => {
-    const [data, setData] = useState({
-        loading: false,
-        success: false,
-        error: "",
-        address: "",
-    });
-
-    const token = isAuthenticated() && isAuthenticated().token;
-    const userId = isAuthenticated() && isAuthenticated().user._id;
-
+const StripeCheckout = ({ products }) => {
     const getFinalPrice = () => {
         let amount = 0;
-        products.map((p) => {
-            amount = amount + p.price;
-        });
+        if (products) {
+            products.map((p) => {
+                amount = amount + p.price;
+                return;
+            });
+        }
+
         return amount;
     };
 
@@ -45,7 +33,7 @@ const StripeCheckout = ({
             .then((res) => {
                 console.log(res);
                 const { status } = res;
-                console.log("STATUS", status)
+                console.log("STATUS", status);
             })
             .catch((err) => console.log(err));
     };

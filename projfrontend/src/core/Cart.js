@@ -18,7 +18,7 @@ const Cart = () => {
         return (
             <div>
                 <h2>This Section it to load all products</h2>
-                {products.map((product, index) => (
+                {products && products.map((product, index) => (
                     <Card
                         key={index}
                         product={product}
@@ -31,19 +31,12 @@ const Cart = () => {
             </div>
         );
     };
-    const loadCheckout = () => {
-        return (
-            <div>
-                <h2>This Section is for checkout</h2>
-            </div>
-        );
-    };
 
     return (
         <Base title="Cart Page" description="Ready to checkout">
             <div className="row text-center">
                 <div className="col-6">
-                    {products.length > 0 ? (
+                    {products ? (
                         loadAllProducts(products)
                     ) : (
                         <h3>No Products in cart</h3>
